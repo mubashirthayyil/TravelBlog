@@ -1,0 +1,176 @@
+{% extends "admin-base.html" %}
+{% block title%}Administrator @TravelBlog{% endblock %}
+
+
+{% block body %}
+
+{% if res %}
+    {% for i in res %}
+    <div class="container-fluid" id="main-con">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-8">
+            <div class="d-flex flex-column">
+              <div class="bg-white p-2">
+                <div class="d-flex flex-row">
+                  <div class="pfpCircle-sm mt-1" style="background-image: url('/static/pfp/{{i[12]}}');"></div>
+                  <div class="d-flex flex-column justify-content-start ms-2">
+                    <span class="d-block pname ms-1 mt-n1" onclick="window.location='/admin-userprofile/{{ i[1] }}'">{{ i[11] }}</span>
+                    <span class="d-block date text-black-50 loc ms-1">
+                      {% if i[14] %}
+                      <a href="https://www.google.com/maps/search/?api=1&query={{ i[14] }}%2C{{ i[15] }}" title="{{ i[13] }}" target="_blank">{{ i[13] }}</a>
+                      {% endif %}
+                    </span>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  {% if i[8]=='.mp4' %}
+              <video style="width:100%; height:auto;" controls>
+                <source src="{{ url_for('static',filename='uploads/video/'+ i[7]+i[8])}}" type="video/mp4">
+              </video>
+              {% else %}
+                {% if i[6] == 1 %}
+                <img src="/static/uploads/{{i[7]}}-1{{i[8]}}" class="d-block w-100" alt="..." style="width:100%; height:auto;">
+                {% else %}
+
+                <div id="carousel{{i[7]}}-1{{i[8]}}" class="carousel slide">
+
+                  <div class="carousel-inner">
+                    {% if i[6] == 2 %}
+                    <div class="carousel-item active">
+                      <img src="/static/uploads/{{i[7]}}-1{{i[8]}}" class="d-block w-100" alt="..."
+                        style="width:100%; height:auto;">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="/static/uploads/{{i[7]}}-2{{i[8]}}" class="d-block w-100" alt="..."
+                        style="width:100%; height:auto;">
+                    </div>
+                    {% endif %}
+                    {% if i[6] > 2 %}
+                    <div class="carousel-item active">
+                      <img src="/static/uploads/{{i[7]}}-1{{i[8]}}" class="d-block w-100" alt="..."
+                        style="width:100%; height:auto;">
+                    </div>
+                    {% for k in range(2,i[6]+1) %}
+                    <div class="carousel-item">
+                      <img src="/static/uploads/{{i[7]}}-{{k}}{{i[8]}}" class="d-block w-100" alt="..."
+                        style="width:100%; height:auto;">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                  {% endif %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{i[7]}}-1{{i[8]}}"
+                      data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{i[7]}}-1{{i[8]}}"
+                      data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+                  {% endif %}
+                  <div class="d-flex flex-row like py-2">
+                    <div class="col-sm-5">
+                      <span><i class="fa-solid fa fa-heart fa-xl " aria-hidden="true" style="color:red"></i>&nbsp;<span>{{ i[10] }} Likes</span></span>
+                    </div>
+                    <div class="col-sm-7 d-flex justify-content-end">
+                      <span><span class="mt-2">Remove Post</span>
+                        <a href="/removePost/{{ i[0] }}" id="likeBtn"
+                           class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this post?');">
+                        <i class="fa-solid fa fa-trash fa-xl " aria-hidden="true" style="color:grey"></i></a></span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row caption">
+                    <p class="comment-text"><strong>{{ i[12] }}</strong> {{ i[3] }} </p>
+                  </div>
+
+                  <div class="d-flex flex-row caption">
+                    <span class="udate text-black-50">{% if i[16] == 'normal' %} {{ i[4] }} {% endif %} {% if i[16] ==
+                      'other' %} {{ i[5]}} ago {% endif %}</span>
+                  </div>
+                </div>
+
+                {% if i[9]=='yes' %}
+                <div class="comments mt-2" id="comment-box">
+                  <a href="/" class="fill-div" data-toggle="modal" data-target="#comment-{{i[0]}}">
+                    {% for c in com %}
+                    {% if c[2] == i[0] %}
+                    <div class="card mt-1">
+                      <div class="card-body p-1 ps-2">
+                        <div class="d-flex flex-row user-info">
+                          <img class="rounded-circle mt-1" src="\static\pfp\{{c[6]}}" width="28px" height="28px">
+                          <div class="d-flex flex-column justify-content-start ms-2">
+                            <span class="d-block cname ms-1">{{ c[7] }}</span>
+                            <span class="date text-black-50 cdate ms-1">{{ c[4] }}</span>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <p class="comment-text">{{ c[3] }}</p>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                  </a>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="comment-{{i[0]}}" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Comments</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        {% for c in com %}
+                        {% if c[2] == i[0] %}
+                        <div class="card mt-1">
+                          <div class="card-body p-1 ps-2">
+                            <div class="d-flex flex-row user-info">
+                              <img class="rounded-circle mt-1" src="\static\pfp\{{c[6]}}" width="28px" height="28px">
+                              <div class="d-flex flex-column justify-content-start ms-2">
+                                <span class="d-block cname ms-1">{{ c[7] }}</span>
+                                <span class="date text-black-50 cdate ms-1">{{ c[4] }}</span>
+                              </div>
+                            </div>
+                            <div class="mt-2">
+                              <p class="comment-text">{{ c[3] }}</p>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                {% else %}
+                <div class="mt-2">
+                  <p align="center" class> No Comments Yet..</p>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <hr class="my-1">
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+ <h3 align="center">No posts to Show Here</h3>
+{% endif %}
+
+
+{% endblock %}

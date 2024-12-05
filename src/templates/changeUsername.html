@@ -1,0 +1,40 @@
+{% extends "user-base.html" %}
+{% block validation %}
+<script type="text/javascript">
+    function valid()
+    {
+        if(document.getElementById("uname").value=="")
+        {
+            alert("Please Enter New Username!");
+            document.getElementById("uname").focus();
+            return false;
+        }
+    }
+</script>
+{% endblock %}
+
+{% block title %}Change Username{% endblock %}
+
+{% block body%}
+<form action="/changePasswd" method="post" onsubmit="return valid()">
+    <div class="card mx-auto mt-3" style="width: 35rem;">
+        <div class="card-body">
+            <div class="text py-3">
+                <h3 align="center">Change Your Username</h3>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-4">New Username</div>
+                <div class="col-md-8">
+                    <input type="text" id="uname" name="uname" class="form-control form-control-md" placeholder="Username"/>
+                </div>
+            </div>
+
+             <div class="mt-4" align="right">
+                 <button type="submit" class="btn btn-secondary">Change</button>
+             </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "user-base.html" %}
+{% block validation %}
+<script type="text/javascript">
+    function valid()
+    {
+        if(document.getElementById("pass1").value=="")
+        {
+            alert("Enter Password!");
+            document.getElementById("pass1").focus();
+            return false;
+        }
+        if(document.getElementById("pass2").value=="")
+        {
+            alert("Enter Confirm Password!");
+            document.getElementById("pass2").focus();
+            return false;
+        }
+        if((document.getElementById("pass2").value)!=(document.getElementById("pass1").value))
+        {
+            alert("Password is doesn't match!");
+            document.getElementById("pass2").focus();
+            return false;
+        }
+    }
+    function myFunction() {
+          var x = document.getElementById("pass1");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
+    }
+</script>
+{% endblock %}
+
+{% block title %}Password Edit{% endblock %}
+
+{% block body%}
+<form action="/changePasswd" method="post" onsubmit="return valid()">
+    <div class="card mx-auto mt-3" style="width: 35rem;">
+        <div class="card-body">
+            <div class="text py-3">
+                <h3 align="center">Change Your Password</h3>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-4">New Password</div>
+                <div class="col-md-8">
+                    <input type="password" id="pass1" name="pass1" class="form-control form-control-md" placeholder="Password"/>
+                    <input type="checkbox" onclick="myFunction()"> <small>Show Password</small>
+                </div>
+            </div>
+
+            <div class="row my-2">
+                <div class="col-md-4">Confirm Password</div>
+                <div class="col-md-8">
+                    <input type="text" id="pass2" name="pass2" class="form-control form-control-md" placeholder="Re-enter Password"/>
+                </div>
+            </div>
+             <div class="mt-4" align="right">
+                 <button type="submit" class="btn btn-secondary">Change</button>
+             </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

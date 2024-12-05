@@ -1,0 +1,90 @@
+{% extends "user-base.html" %}
+{% block title %}Profile Edit{% endblock %}
+
+<script type="text/javascript">
+    function valid()
+    {
+        if(document.getElementById("fname").value=="")
+        {
+            alert("Enter Your Name!");
+            document.getElementById("fname").focus();
+            return false;
+        }
+        if(/[^a-z\s]/gi.test(document.getElementById("fname").value))
+        {
+            alert("Special characters are not allowed in name!");
+            document.getElementById("fname").focus();
+            return false;
+        }
+        if(document.getElementById("email").value=="")
+        {
+            alert("Enter your E-mail ID");
+            document.getElementById("email").focus();
+            return false;
+        }
+        var emailPat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        var emailid = document.getElementById("email").value;
+        var matchArray = emailid.match(emailPat);
+        if (matchArray == null)
+        {
+            alert("Your Email ID seems incorrect. Enter Correct Email ID.");
+            document.getElementById("email").focus();
+            return false;
+        }
+        if(document.getElementById("phone").value=="")
+        {
+            alert("Enter Phone Number");
+            document.getElementById("phone").focus();
+            return false;
+        }
+        if(/[^0-9]/gi.test(document.getElementById("phone").value))
+        {
+            alert("Special characters not allowed in Phone Number");
+            document.getElementById("phone").focus();
+            return false;
+        }
+    }
+</script>
+
+{% block body%}
+<form action="/editprofile" method="post" onsubmit="return valid()">
+    <div class="card mx-auto mt-3" style="width: 40rem;">
+        <div class="card-body">
+            <div class="form-group my-2">
+                     <label for="fname">Name</label>
+                     <input type="text"
+                            class="form-control"
+                            id="fname"
+                            name="fname"
+                            value="{{ data[0] }}"
+                            placeholder="First Name">
+             </div>
+
+             <div class="form-group my-2">
+                 <label for="email">Email</label>
+                 <input type="text"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value="{{ data[1] }}"
+                        placeholder="Enter Your Email">
+             </div>
+
+             <div class="form-group my-2">
+                 <label for="phone">Contact Number</label>
+                 <input type="text"
+                        class="form-control"
+                        id="phone"
+                        name="phone"
+                        value="{{ data[2] }}"
+                        placeholder="Enter Your Contact Number">
+             </div>
+
+             <div class="mt-4" align="right">
+                 <button type="submit" class="btn btn-secondary">Change</button>
+             </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

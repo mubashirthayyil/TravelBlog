@@ -1,0 +1,11 @@
+{% extends "user-base.html" %}
+{% block title%}Home Feed{% endblock %}
+
+
+{% block body %}
+
+<video style="width:100%; height:auto;" controls>
+  <source src="{{ url_for('static',filename='uploads/'+ vid)}}" type="video/mp4">
+</video>
+
+{% endblock %}

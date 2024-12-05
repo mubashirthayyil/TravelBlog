@@ -1,0 +1,143 @@
+{% extends "user-base.html" %}
+{% block title %}Profile Edit{% endblock %}
+
+<script type="text/javascript">
+    function valid()
+    {
+        if(document.getElementById("fname").value=="")
+        {
+            alert("Enter Your Name!");
+            document.getElementById("fname").focus();
+            return false;
+        }
+        if(/[^a-z\s]/gi.test(document.getElementById("fname").value))
+        {
+            alert("Special characters are not allowed in name!");
+            document.getElementById("fname").focus();
+            return false;
+        }
+        if(document.getElementById("email").value=="")
+        {
+            alert("Enter your E-mail ID");
+            document.getElementById("email").focus();
+            return false;
+        }
+        var emailPat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        var emailid = document.getElementById("email").value;
+        var matchArray = emailid.match(emailPat);
+        if (matchArray == null)
+        {
+            alert("Your Email ID seems incorrect. Enter Correct Email ID.");
+            document.getElementById("email").focus();
+            return false;
+        }
+        if(document.getElementById("phone").value=="")
+        {
+            alert("Enter Phone Number");
+            document.getElementById("phone").focus();
+            return false;
+        }
+        if(/[^0-9]/gi.test(document.getElementById("phone").value))
+        {
+            alert("Special characters not allowed in Phone Number");
+            document.getElementById("phone").focus();
+            return false;
+        }
+    }
+</script>
+
+{% block body%}
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <div class="card mx-auto mt-3" style="width: 40rem;">
+        <div class="card-title">
+            <h3 class="text my-3" align="center" >Upload Video</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class=" col-md-6 d-flex justify-content-center">
+                      <a class="btn btn-outline-secondary" href="#videoLocation"
+                         data-bs-toggle="modal" data-bs-dismiss="modal">Select Location</a>
+                    <input type="hidden" name="lat" id="lat2" class="form-control">
+                    <input type="hidden" name="lon" id="lon2" class="form-control">
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                     <input type="file" name="video" class="form-control"/>
+                </div>
+            </div>
+            <hr>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center">
+                     <input type="text" name="caption1" placeholder="caption" class="form-control" />
+                </div>
+            </div>
+
+             <div class="mt-4" align="right">
+                 <button type="submit" class="btn btn-secondary" name="uploadBtn" value="video">Upload</button>
+             </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block map %}
+<!-- LOCATION MODAL FOR PHOTO -->
+<form action="" method="post">
+    <div class="modal fade" id="videoLocation" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalToggleLabel2">Select Location</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div  id="googleMap" align="center" style="width:100%;height:350px;">
+
+            </div>
+              <hr>
+            <form method="post" enctype="multipart/form-data" name="form1" id="form1" action="/action_location">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-outline">
+                            <small>Latitude :</small>
+                            <input type="text" name="lat" id="lat" class="form-control" placeholder="Latitude">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                          <small>Longitude :</small>
+                          <input type="text" name="lon" id="lon" class="form-control form-control-md" placeholder="Longitude"/>
+                      </div>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+
+<script>
+    function myMap() {
+        var mapProp= {
+            center:new google.maps.LatLng(10.722349340133972,76.13016901677172),
+            zoom:7,
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            //alert(event.latLng.lat() + ", " + event.latLng.lng());
+            document.getElementById("lat").value=event.latLng.lat();
+            document.getElementById("lon").value=event.latLng.lng();
+            document.getElementById("lat2").value=event.latLng.lat();
+            document.getElementById("lon2").value=event.latLng.lng();
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJKQEiMYJvUzXzKeaGIK0754YOuTad_bQ&callback=myMap"></script>
+
+{% endblock %}

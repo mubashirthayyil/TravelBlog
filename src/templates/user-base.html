@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="stylesheet" href="\static\bootstrap.min.css">-->
+<!--    <link rel="stylesheet" href="\static\font-awesome.min.css">-->
+
+    <link rel="stylesheet" href="\static\style.css">
+
+     <!-- Import bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+          crossorigin="anonymous"/>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          crossorigin="anonymous"/>
+
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    {% block validation %}{% endblock%}
+    <title>{% block title %}User-Base{% endblock %}</title>
+</head>
+<body>
+<header>
+{% block nav %}
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top" style="background-color: #233329;" id="navfix">
+  <div class="container-fluid d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
+        <a onclick="location.href='/userHome'" type="button" id="home"><span>TravelBlog</span>
+        </a>
+          {% block nav0 %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown">
+                <a class="d-flex align-items-center link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span><i class="uil uil-plus-circle"> </i><span id="drop">Upload</span></span>
+                </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#photoUpload">Photo</a></li>
+                <li><hr></li>
+                <li><a class="dropdown-item" href="/videoUpload">Video</a></li>
+            </ul>
+            </li>
+            <li class="nav-item">
+               <a onclick="location.href='/searchAccounts'" type="button">
+                  <span>Search</span>
+                </a>
+            </li>
+            {% block navitem %}
+            <li class="nav-item mx-2">
+              <a onclick="location.href='/my_profile/grid'" type="button">
+                  <span>
+                      <span class="nav-pfp"><img src="/static/pfp/{% block pfp %}nopfp.jpg{% endblock %}"/>
+                      </span>
+                      Profile
+                  </span>
+              </a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--               <a onclick="location.href='/dump'" type="button">-->
+<!--                  <span>dump</span>-->
+<!--                </a>-->
+<!--            </li>-->
+            {% endblock %}
+          </ul>
+        </div>
+          {% endblock %}
+      </div>
+  </div>
+</nav>
+{% endblock %}
+ 
+</header>
+
+
+<!-- photo upload modal-->
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <div class="modal fade" id="photoUpload" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Upload Photo</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+
+                  <div class="col d-flex justify-content-center">
+                      <a class="btn btn-outline-secondary" href="#locationModal"
+                              data-bs-toggle="modal" data-bs-dismiss="modal">Select Location</a>
+                  </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                    <div class="form-outline">
+                        <small>Latitude :</small>
+                        <input type="text" name="lat" id="lat1" class="form-control" placeholder="Latitude">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-outline">
+                      <small>Longitude :</small>
+                      <input type="text" name="lon" id="lon1" class="form-control form-control-md" placeholder="Longitude"/>
+                  </div>
+                </div>
+              </div>
+              <hr>
+                <div class="image-preview-container">
+                    <div class="preview">
+                        <img src="" id="preview-selected-image" />
+                    </div>
+                    <label for="file-upload">Select Image</label>
+                    <input type="file" id="file-upload" name="photo" accept="image/*" onchange="previewImage(event);" multiple/>
+                </div>
+              <hr>
+<!--            <textarea name="caption" placeholder="caption" class="form-control" rows="2"></textarea>-->
+            <input type="text" name="caption" placeholder="caption" class="form-control" />
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" name="uploadBtn" value="photo">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+
+<div class="content">
+{% block body %}{% endblock %}
+</div>
+
+
+    <!-- Import jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/bdfd3b3bb6.js" crossorigin="anonymous"></script>
+
+{% block map %}
+
+<!-- LOCATION MODAL FOR PHOTO -->
+<form action="" method="post">
+    <div class="modal fade" id="locationModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalToggleLabel2">Select Location</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div  id="googleMap" align="center" style="width:100%;height:350px;">
+
+            </div>
+              <hr>
+            <form method="post" enctype="multipart/form-data" name="form1" id="form1" action="/action_location">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-outline">
+                            <small>Latitude :</small>
+                            <input type="text" name="lat" id="lat" class="form-control" placeholder="Latitude">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-outline">
+                          <small>Longitude :</small>
+                          <input type="text" name="lon" id="lon" class="form-control form-control-md" placeholder="Longitude"/>
+                      </div>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-secondary" href="#photoUpload" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="">Select</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+
+<script>
+    function myMap() {
+        var mapProp= {
+            center:new google.maps.LatLng(10.722349340133972,76.13016901677172),
+            zoom:7,
+        };
+        var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            //alert(event.latLng.lat() + ", " + event.latLng.lng());
+            document.getElementById("lat").value=event.latLng.lat();
+            document.getElementById("lon").value=event.latLng.lng();
+            document.getElementById("lat1").value=event.latLng.lat();
+            document.getElementById("lon1").value=event.latLng.lng();
+        });
+    }
+    </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJKQEiMYJvUzXzKeaGIK0754YOuTad_bQ&callback=myMap"></script>
+
+
+{% endblock %}
+
+<script>
+  const previewImage = (event) => {
+      const imageFiles = event.target.files;
+      const imageFilesLength = imageFiles.length;
+      if (imageFilesLength > 0) {
+          const imageSrc = URL.createObjectURL(imageFiles[0]);
+          const imagePreviewElement = document.querySelector("#preview-selected-image");
+          imagePreviewElement.src = imageSrc;
+          imagePreviewElement.style.display = "block";
+      }
+  }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+.mb-sm { margin-bottom: .5em; }
+.mt-sm { margin-top: .5em; }
+.pt-sm { padding-top: .5em; }
+.ml{ margin-left: 8px;}
+.pl-sm { 
+    padding-left: .5em;
+    line-height: 18PX;
+}
+
+/* ------------------------------------- Home Page ------------------------ */
+#navfix {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.content{
+  padding-top: 60px;
+}
+
+#main-con{
+  width:55%;
+}
+
+.pname{
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.pname a{
+  text-decoration: none;
+  color: #575f5a;
+}
+.loc{
+  margin-top: -5px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  cursor: pointer;
+}
+.loc a{
+  text-decoration: none;
+  color: #575f5a;
+}
+
+.udate{
+font-size: 11px ;
+
+}
+.comments{
+margin-left: 44px;
+margin-right: 11px;
+height: 100px;
+overflow: hidden;
+overflow-y: scroll;
+}
+
+
+.cname{
+font-size: 12px;
+font-weight: bold;
+}
+.cdate{
+font-size: 10px;
+}
+
+
+/* ------------------------------------- like button ------------------------ */
+
+#likeBtn{
+  color: #c60a0a;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#reportBtn{
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+/* ------------------------------------- NAVBAR ------------------------ */
+
+a.fill-div {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: #000000;
+}
+
+
+.navbar{
+  height: max-content;
+  color: #dbdbdb;
+}
+
+.navbar a{
+  display: block;
+  text-decoration: none;
+  color: #dbdbdb;
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  font: weight 200px;
+}
+.navbar #home{
+  font-size: large;
+  font-weight: bold;
+}
+.navbar #home:hover{
+  color: #4e9c64;
+}
+
+.navbar a > span{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 48px;
+  padding: 0 12px;
+  border-radius: 20px;
+  line-height: 1;
+}
+
+.navbar a:hover > span{
+  color: #f2f2f2;
+  background: #575f5a;
+}
+
+.navbar a:hover > span :is(i, img) {
+  scale: 1.05;
+}
+
+.navbar a > span > span {
+  transition: 0.3s;
+}
+
+/* ----------------------------------------------------------------- */
+
+
+
+
+/* ----------------- PHOTO UPLOAD ------------------------------------ */
+
+.image-preview-container {
+    width: 80%;
+    background: #fdfff9;
+    margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+    border-radius: 20px;
+}
+
+.image-preview-container img {
+    width: 100%;
+    display: none;
+    margin-bottom: 30px;
+}
+.image-preview-container input {
+    display: none;
+}
+
+.image-preview-container label {
+    display: block;
+    height: 45px;
+    text-align: center;
+    background: #fdfff9;
+    color: #2F2F2F;
+    font-size: 15px;
+    text-transform: Uppercase;
+    font-weight: 400;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.pfpView-container {
+  width: 80%;
+  background: #fdfff9;
+  margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  border-radius: 20px;
+}
+
+.pfpView-container img {
+  width: 100%;
+  display: none;
+  margin-bottom: 30px;
+}
+.pfpView-container input {
+  display: none;
+}
+
+.pfpView-container label {
+  display: block;
+  height: 45px;
+  text-align: center;
+  background: #fdfff9;
+  color: #2F2F2F;
+  font-size: 15px;
+  text-transform: Uppercase;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* -------------------------------profile page------------------------------ */
+
+.pirow{
+  width: 33%;
+  height: 270px;
+  object-fit: cover;
+  object-position: bottom;
+  overflow:hidden;
+  position:relative;
+}
+
+.pirow img{
+  position:absolute;
+  min-width:100%;
+  min-height: 100%;
+}
+
+#psettings{
+  color: black;
+  background: none;
+  border: none;
+}
+
+.pfpCircle{
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pfpCircle-sm{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#editBtn{
+  color: #c60a0a;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.nav-pfp{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.nav-pfp img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+
+/* ------------------------------ SEARCH PAGE ----------------------------- */
+
+#profileSearch{
+  width: 45%;
+}
+#searchCard{
+  height: 100vh;
+}
+
+
+
+
+/* ------------------------------ RESPONSIVE PEEPS ----------------------- */
+
+@media only screen and (max-width: 1200px) {
+  #main-con{
+    width:80%;
+  }
+  #username{
+    font-weight: bold;
+    font-size: 14px;
+  }
+  #loctag{
+      font-weight: lighter;
+      padding: 5px;
+  }
+  #profileSearch{
+    width: 80%;
+  }  
+}
+
+@media only screen and (max-width: 900px) {
+  #main-con{
+    width:100%;
+  }
+  #profileSearch{
+    width: 100%;
+  } 
+}
+@media only screen and (max-width: 650px) {
+  .pirow{
+    height: 200px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .pirow{
+    height: 180px;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .pirow{
+    height: 150px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .pirow{
+    height: 100px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .pirow{
+    height: 100px;
+  }
+}
+@media only screen and (max-width: 200px) {
+  .pirow{
+    height: 65px;
+  }
+}
+
+
+@media only screen and (max-height: 100px) {
+  .comments{
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+}
